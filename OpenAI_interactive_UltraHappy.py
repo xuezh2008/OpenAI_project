@@ -1,4 +1,4 @@
-import openai
+import openai, datetime
 
 API_KEY = open("my_key.txt" , "r").read()
 openai.api_key = API_KEY
@@ -9,6 +9,10 @@ openai.api_key = API_KEY
 # 		{"role": "user", "content": "blahblah"}
 # 	]
 # )
+def Add_Log(text):
+	with open("chat_log.log", "a") as file:
+		file.write(text + "\n")
+
 
 chat_log = []
 
@@ -17,14 +21,11 @@ my_special_prompt = 'Now I want you to act like an ultra optimistic assitant, tr
 while True:
 	user_message = input()
 
-
-
-
 	if user_message.lower() == "quit":
 		break
 	else:
 		chat_log.append({"role": "user", "content": my_special_prompt+user_message})
-        
+		Add_Log(str(datetime.datetime.now()) + ' user: ' + user_message.strip("\n").strip())
 		response = openai.ChatCompletion.create(
  			model = "gpt-3.5-turbo",
 			messages = chat_log
@@ -32,7 +33,7 @@ while True:
 		assistant_response = response['choices'][0]['message']['content']
 		print("ZzzGPT:", assistant_response.strip("\n").strip())
 		chat_log.append({"role": "assistant", "content": assistant_response.strip("\n").strip()})
-
+		Add_Log(str(datetime.datetime.now()) + ' ZzzGPT: ' + assistant_response.strip("\n").strip())
 
 # -------------Sample--------------
 # hello
