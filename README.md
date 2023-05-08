@@ -2,7 +2,7 @@
 My first chatbot, an ultra-happy assistant, using OpenAI API
 
 Current Progress:
-1. Connected with OpenAI API, got chat working (test_openai.py);
+1. Connect with OpenAI API, got chat working (test_openai.py);
 2. Add ability to chat interactively with user input (OpenAI_interactive.py);
 3. Add ability to store chat log and use chat log for context (OpenAI_interactive.py);
 4. Add Dall-E 2 and use chat to generate prompt for Dall-E 2 to create a profile image for this assitant (test_openai.py); 
