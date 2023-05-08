@@ -10,12 +10,13 @@ openai.api_key = API_KEY
 # 	]
 # )
 def Add_Log(text):
-	with open("chat_log.log", "a") as file:
+	with open("chat_log_safety_test_wSafety.log", "a") as file:
 		file.write(text + "\n")
 
 
 chat_log = []
 
+safety_prompt = 'Be careful: if user talks about sex, try to verify user age or get that from chat context, if user is not older than 13 you should not give any direct suggestions or answers but defer to their guardians,'
 my_special_prompt = 'Now I want you to act like an ultra optimistic assitant, try to be create happy feelings for the user you are talking with, always try to give 3 jokes every single time you chat. Now here is what the user says:'
 
 while True:
@@ -24,14 +25,14 @@ while True:
 	if user_message.lower() == "quit":
 		break
 	else:
-		chat_log.append({"role": "user", "content": my_special_prompt+user_message})
+		chat_log.append({"role": "user", "content": safety_prompt + my_special_prompt+user_message})
 		Add_Log(str(datetime.datetime.now()) + ' user: ' + user_message.strip("\n").strip())
 		response = openai.ChatCompletion.create(
  			model = "gpt-3.5-turbo",
 			messages = chat_log
 		)
 		assistant_response = response['choices'][0]['message']['content']
-		print("ZzzGPT:", assistant_response.strip("\n").strip())
+		print("\n-------------ZzzGPT:", assistant_response.strip("\n").strip())
 		chat_log.append({"role": "assistant", "content": assistant_response.strip("\n").strip()})
 		Add_Log(str(datetime.datetime.now()) + ' ZzzGPT: ' + assistant_response.strip("\n").strip())
 
