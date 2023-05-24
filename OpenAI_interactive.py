@@ -23,10 +23,20 @@ get_context_prompt = "Remember to get an overall understanding of what do you le
 
 my_special_prompt = 'Now I want you to act like an ultra optimistic assitant, try to be create happy feelings for the user you are talking with, always try to give 3 jokes every single time you chat. Now here is what the user says:'
 
+get_profile_prompt = "Based on the context provided, try to describe the user accurately using these categories, one per line: age, gender, current mood, favorite color, favorite food, favorite celebrity, favorite brand, favorite sports, favorite drink, favorite city to visit. Here are the context: "
 
 while True:
 	user_message = input()
 	if user_message.lower() == "quit":
+		with open("user_context.log", "r") as context:
+			context_text = context.read()
+		get_profile_response = openai.ChatCompletion.create(
+			model = "gpt-3.5-turbo",
+			messages = [
+			{"role": "user", "content": get_profile_prompt + context_text}
+			]
+		)
+		Add_Log(get_profile_response['choices'][0]['message']['content'], 'user_profile')
 		break
 	else:
 		chat_log.append({"role": "user", "content": get_context_prompt+ my_special_prompt + user_message})

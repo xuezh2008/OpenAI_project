@@ -9,5 +9,6 @@ Current Progress:
 5. Add a hidden prompt so that the bot appears always happy and always trying to give out 3 jokes (OpenAI_interactive_UltraHappy.py);
 6. Add a preliminary safety prompt and did a test using an exmaple from The Washington Post (OpenAI_interactive_UltraHappy.py);
 7. Add the log to record bot's understanding of user context (OpenAI_interactive.py)
+8. Add the ability to create user profile based on chat context (OpenAI_interactive.py)
 
 More to come...
